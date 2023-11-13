@@ -1,0 +1,31 @@
+WeakBot(Init){
+* (Init)
+| Cell(L,V) & Cell(R,V)? 25% Move(L) / 25% Move(R) / 50% Wait: (Init)
+| Cell(L,V) & Cell(R,_)? 50% Move(L) / 50% Wait: (Init)
+| Cell(R,V) & Cell(L,_)? 50% Move(R) / 50% Wait: (Init)
+| Cell(R,_) & Cell(L,_)? Wait : (Init)
+| Cell(R,D) ? Egg(F) : ()
+| Cell(L,D)? Egg(F) : ()
+* ()
+}
+
+MediumBot(Init){
+* (Init)
+| Cell(L,V) & Cell(R,V)? 70% Move(L) / 30% Move(R):(Action)
+| Cell(L,V) & Cell(R,A)? 70% Move(L) / 30% Wait:(Action)
+| Cell(R,V) & Cell(L,A)? 70% Move(R) / 30% Wait:(Action)
+| Cell(R) & Cell(L)? :(Action)
+| !(GotPower) ? Egg(F) :()
+* (Action)
+| True ? 50% Protect / 50% Hit :(Init)
+* ()
+}
+
+Platform(Init){
+* (Init)
+| !(GotPower) ? :()
+| Cell(L,V) & Cell(R,V)? 5% Move(L) / 95% Move(R) :(Init)
+| Cell(L,V) & Cell(R,_)? 70% Move(L) / 30% Wait :(Init)
+| Cell(R,V) & Cell(L,_)? 70% Move(R) / 30% Wait: (Init)
+* ()
+}

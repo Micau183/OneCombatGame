@@ -1,0 +1,124 @@
+Player1(Init){
+  * (Init):
+  | Key(i)  ? Wizz() :(Init)
+  | Key(o)  ? Pop() :(Init)
+  | Key(FD)  ? Hit() :(Init)
+  | Key(p)  ? Protect() :(Init)
+  | Key(FU) ? Jump():(Init)
+
+  | Key(FL) ? Move(L) :(Init)
+  | Key(FR) ? Move(R) :(Init)
+
+  | True()  ? Throw() : (Init)
+
+}
+
+Player2(Init){
+  * (Init):
+  | Key(a)  ? Wizz() :(Init)
+  | Key(e)  ? Pop() :(Init)
+  | Key(s)  ? Hit() :(Init)
+  | Key(SPACE)  ? Protect() :(Init)
+  | Key(z) ? Jump():(Init)
+
+  | Key(q) ? Move(L) :(Init)
+  | Key(d) ? Move(R) :(Init)
+
+  | True()  ? Throw() : (Init)
+
+}
+
+StrongBot(Init){
+*(Init):
+|Key(4) ? Wait()  : (Action)
+|True() ? Store() : (Deplacement)
+      
+*(Deplacement):
+|Key(9) ? Wait() : (Action)
+|Key(8) ? Wait() : (Action)
+|Key(4) ? Wait()  : (Action)
+|True() ? Move() : (Deplacement)
+      
+*(Action):
+|Key(1) ? Wait() : (Attack)
+|True() ? Wait() : (Small)
+
+*(Attack):
+|Key(7) ? Wizz() : (Init)
+|Key(6) ? Pop() : (Init)
+|True() ? Hit() : (Init)
+      
+*(Small):
+|Key(1) ? Protect() : (Action)
+|True() ? Hit() : (Init)
+}
+      
+Weakbot(Init){
+*(Init):
+|Key(1) ? Wizz() : (Init)
+
+|Key(2) ? Turn(F) :(Init)
+|Key(3) ? Protect() : (Init)
+|True() ? Move() : (Init)
+
+ }
+ 
+ 
+Mediumbot(Init){
+*(Init):
+|Key(4) ? Throw() : (Init)
+|Key(2) ? Turn(F) :(Init)
+|Key(3) ? Protect() : (Init)
+|True() ? Move() : (Init)
+
+ }
+ 
+ Chien(Init){
+*(Init):
+
+|Key(6) ? Hit() : (Init)
+|Key(2) ? Turn(F) :(Init)
+|True() ? Move() : (Init)
+
+ }
+
+Ronces(Init){
+*(Init):
+|Key(1) ? Hit() : (Init)
+|True() ? Wait() : (Init)
+}
+
+Portal(Init){
+*(Init):
+|Key(1) ? Wizz() : (Init)
+|True() ? Wait() : (Init)
+}
+
+Tile(Init){
+*(Init):
+|True() ? Wait() : ()
+*()
+}
+
+MoveRight(Init){
+*(Init):
+|True() ? Move(R) : (Init)
+}
+ 
+ Platform(Init){
+ *(Init):
+ |Key(1) ? Egg() : (Init)
+ |Key(2) ? Turn(D) : (Init)
+ |True() ? Move() : (Init)
+ }
+
+Item(Init){
+*(Init):
+|GotPower() ? Power() : (Init)
+|True() ? Wizz() : ()
+*()
+}
+ 
+ 
+ 
+ 
